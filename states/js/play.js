@@ -8,6 +8,11 @@ Play.create = function() {
   Player.bot.body.velocity.x = 0;
   Player.bot.body.velocity.y = 0;
   Player.bot.update = Player.static.update;
+  Player.battery = 3;
+  Player.isHitted = false;
+  Player.score = 0;
+
+  Player.scoreText = game.add.text(0, 0, `${Player.score}`, {font: "32px Arial", fill: "#ffffff"});
 
   Play.moveUp = game.input.keyboard.addKey(Phaser.Keyboard.W);
   Play.moveDown = game.input.keyboard.addKey(Phaser.Keyboard.S);
@@ -22,6 +27,9 @@ Play.create = function() {
 
   Play.lastTime = game.time.time;
   Play.spawnTimeCounter = 0;
+
+  Player.batteryGroup = game.add.group();
+  Player.displayBattery();
 };
 
 Play.update = function() {
@@ -32,7 +40,8 @@ Play.update = function() {
   }
 
   game.physics.arcade.overlap(Player.blastGroup, Enemies.group, function(blast, enemy) {
-    // console.log('blast over enemy');
+    Player.score += 1;
+    Player.scoreText.setText(`${Player.score}`);
     enemy.destroy();
   });
 

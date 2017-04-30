@@ -5,6 +5,7 @@ Boot.preload = function() {
   game.load.image('bot', 'res/bot.png');
   game.load.image('explosion', 'res/explosion.png');
   game.load.image('enemy', 'res/enemy.png');
+  game.load.image('battery', 'res/battery.png');
 },
 
 Boot.create = function() {
