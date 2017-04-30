@@ -12,7 +12,7 @@ Play.create = function() {
   Player.isHitted = false;
   Player.score = 0;
 
-  Player.scoreText = game.add.text(0, 0, `${Player.score}`, {font: "32px Arial", fill: "#ffffff"});
+  Player.scoreText = game.add.text(10, 10, `${Player.score}`, {font: "32px Arial", fill: "#ffffff"});
 
   Play.moveUp = game.input.keyboard.addKey(Phaser.Keyboard.W);
   Play.moveDown = game.input.keyboard.addKey(Phaser.Keyboard.S);
