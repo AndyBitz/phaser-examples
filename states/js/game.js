@@ -20,15 +20,21 @@ function Game() {
     render: Play.render
   };
 
-  const WinState = {
-    update: Win.update,
-    create: Win.create
+  const GameOverState = {
+    update: GameOver.update,
+    create: GameOver.create
+  };
+
+  const ForeplayState = {
+    update: Foreplay.update,
+    create: Foreplay.create
   };
 
   game.state.add('boot', BootState);
   game.state.add('menu', MenuState);
   game.state.add('play', PlayState);
-  game.state.add('win', WinState);
+  game.state.add('gameover', GameOverState);
+  game.state.add('foreplay', ForeplayState);
 
   game.state.start('boot');
 }

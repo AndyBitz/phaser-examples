@@ -11,8 +11,11 @@ Play.create = function() {
   Player.battery = 3;
   Player.isHitted = false;
   Player.score = 0;
+  Player.static.velocity = 16;
+  Player.hasMoved = false;
+  Player.moveCounter = 0;
 
-  Player.scoreText = game.add.text(10, 10, `${Player.score}`, {font: "32px Arial", fill: "#ffffff"});
+  Player.scoreText = game.add.text(10, 10, `${Player.score}`, { font: "32px Arial", fill: "#ffffff" });
 
   Play.moveUp = game.input.keyboard.addKey(Phaser.Keyboard.W);
   Play.moveDown = game.input.keyboard.addKey(Phaser.Keyboard.S);
@@ -30,6 +33,8 @@ Play.create = function() {
 
   Player.batteryGroup = game.add.group();
   Player.displayBattery();
+
+  GameOver.displayHighscore();
 };
 
 Play.update = function() {
@@ -37,6 +42,12 @@ Play.update = function() {
     // TODO
     // just freez game
     game.state.start('menu');
+  }
+
+  if (!Player.hasMoved) {
+    Player.moveCounter += 1;
+  } else {
+    Player.moveCounter = 0;
   }
 
   game.physics.arcade.overlap(Player.blastGroup, Enemies.group, function(blast, enemy) {

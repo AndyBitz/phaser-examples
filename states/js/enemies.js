@@ -1,7 +1,7 @@
 function Enemies() {};
 
 Enemies.static = {};
-Enemies.spawnTime = 1400;
+Enemies.spawnTime = 800;
 
 Enemies.spawn = function() {
   const x = game.world.width;

@@ -1,7 +1,7 @@
 function Player() {}
 
 Player.static = {};
-Player.static.velocity = 10;
+Player.static.velocity = 16;
 Player.battery = 3;
 
 Player.static.update = function() {
@@ -21,6 +21,15 @@ Player.static.update = function() {
 
   if (Play.moveLeft.isDown)
     Player.bot.x -= Player.static.velocity;
+
+  if (Play.moveUp.isDown 
+      || Play.moveDown.isDown
+      || Play.moveRight.isDown
+      || Play.moveLeft.isDown) {
+    Player.hasMoved = true;
+  } else {
+    Player.hasMoved = false;
+  }
 
   // check for border collision
   const bounds = Player.bot.getBounds();
@@ -43,16 +52,18 @@ Player.static.update = function() {
     if (Player.isHitted) return;
     Player.isHitted = true;
     Player.bot.alpha = .4;
+    Player.static.velocity = 5;
     Player.battery -= 1;
     Player.batteryGroup.remove(Player.batteryGroup.getTop());
     game.time.events.add(Phaser.Timer.SECOND * 4, function() {
       Player.isHitted = false;
       Player.bot.alpha = 1;
+      Player.static.velocity = 16;
     }, this);
   });
 
   if (Player.battery <= 0) {
-    game.state.start('menu');
+    game.state.start('gameover');
   }
 
 };
@@ -73,8 +84,15 @@ Player.displayBattery = function() {
 
 Player.blast = function() {
   Player.blastLock = true;
-  const x = Player.bot.x;
-  const y = Player.bot.y;
+
+  // prevent player from must standing around
+  const maxX = (Player.moveCounter > 1000) ? -100 : 100;
+  const minX = (Player.moveCounter > 1000) ? -300 : -100;
+  const normX = game.rnd.integerInRange(minX, maxX);
+  const normY = game.rnd.integerInRange(-100 ,100);
+  
+  const x = Player.bot.x+normX;
+  const y = Player.bot.y+normY;
   const blast = game.add.sprite(x, y, 'explosion');
   game.physics.enable(blast, Phaser.Physics.ARCADE);
   blast.anchor.set(.5, .5);
@@ -103,6 +121,18 @@ Player.blast = function() {
     // change from setTimeout to game time
     Player.blastLock = false;
   }, 500);
+
+  // move player during explision
+  // const normX = game.world.height/100*6;
+  // const normY = game.world.width/100*6;
+
+  // const pX = Player.bot.x + game.rnd.integerInRange(-normX, -25);
+  // const pY = Player.bot.y + game.rnd.integerInRange(-normY, normY);
+
+  // game.add.tween(Player.bot).to({ x: pX, y: pY }, 200, 'Linear').start();
+
+  // const pX = Player.bot.x-50;
+  // game.add.tween(Player.bot).to({ x: pX }, 3, 'Linear').start();
 
   Player.blastGroup.add(blast);
 };

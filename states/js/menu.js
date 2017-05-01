@@ -14,9 +14,6 @@ Menu.create = function() {
 
 Menu.update = function() {
 	if (Menu.initKey.isDown) {
-		// TODO
-		// show instructions
-		// get ready
-		game.state.start('play');
+		game.state.start('foreplay');
 	}
 };
