@@ -90,7 +90,7 @@ Player.blast = function() {
   const minX = (Player.moveCounter > 1000) ? -300 : -100;
   const normX = game.rnd.integerInRange(minX, maxX);
   const normY = game.rnd.integerInRange(-100 ,100);
-  
+
   const x = Player.bot.x+normX;
   const y = Player.bot.y+normY;
   const blast = game.add.sprite(x, y, 'explosion');
