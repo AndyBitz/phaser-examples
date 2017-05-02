@@ -98,6 +98,8 @@ Player.blast = function() {
   blast.anchor.set(.5, .5);
   blast.scale.set(0, 0);
 
+  game.sound.play('boom');
+
   const blastScaleTween = game.add.tween(blast.scale);
   blastScaleTween.to({
     x: 1,

@@ -6,7 +6,10 @@ Boot.preload = function() {
   game.load.image('explosion', 'res/explosion.png');
   game.load.image('enemy', 'res/enemy.png');
   game.load.image('battery', 'res/battery.png');
-},
+  game.load.audio('boom', 'res/boom.m4a');
+  game.load.audio('over', 'res/over.m4a');
+  game.load.audio('noice', 'res/noice.m4a');
+};
 
 Boot.create = function() {
   game.physics.startSystem(Phaser.Physics.ARCADE);

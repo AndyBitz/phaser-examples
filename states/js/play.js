@@ -53,6 +53,9 @@ Play.update = function() {
   game.physics.arcade.overlap(Player.blastGroup, Enemies.group, function(blast, enemy) {
     Player.score += 1;
     Player.scoreText.setText(`${Player.score}`);
+    if (Player.score != 0 && Player.score%10 == 0) {
+      game.sound.play('noice');
+    }
     enemy.destroy();
   });
 

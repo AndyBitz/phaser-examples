@@ -17,6 +17,9 @@ GameOver.create = function() {
   GameOver.restartKey = game.input.keyboard.addKey(Phaser.Keyboard.W);
 
   GameOver.displayHighscore();
+
+  game.sound.play('over');
+
 };
 
 GameOver.update = function() {
