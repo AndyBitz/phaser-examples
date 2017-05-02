@@ -1,7 +1,7 @@
-### Phaser.io test
+# phaser first test
 
-an example I made to get started with phaser - [live example](https://moving-hvikbfqeib.now.sh/)
+an example I made to get started with phaser
 
-#### how
+## how
 
 just press wasd to move around and hit space as soon as you feel like it.
