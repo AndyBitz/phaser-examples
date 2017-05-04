@@ -150,7 +150,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename></filename>
+                <filename>hero_walk.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
