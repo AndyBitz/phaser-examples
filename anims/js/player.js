@@ -48,7 +48,7 @@ Player.movement = function() {
   }
 
   if (Player.cursors.up.isDown
-    && Player.char.body.touching.down) {
+    && Player.char.body.onFloor()) {
     // jump
     Player.char.body.velocity.y = -350;
   }
