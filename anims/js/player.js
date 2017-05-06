@@ -66,6 +66,13 @@ Player.movement = function() {
     Player.char.body.velocity.y = -350;
   }
 
+  if (Player.char.body.velocity.y < -1) {
+    Player.char.frameName = 'jump/frame2.png';
+  }
+};
+
+Player.startJumpingAnimation = function() {
+  Player.char.frameName = 'jump/frame2.png';
 };
 
 Player.startWalkingAnimation = function() {
