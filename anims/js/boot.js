@@ -7,8 +7,8 @@ Boot.preload = function() {
   game.load.image('background', 'res/background.png');
   game.load.atlas(
     'hero',
-    'res/hero_walk.png',
-    'res/hero_walk.json',
+    'res/hero.png',
+    'res/hero.json',
     Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 };
 

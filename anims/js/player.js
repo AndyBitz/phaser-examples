@@ -8,7 +8,20 @@ function Player() {
   Player.char.scale.set(2, 2);
   Player.char.anchor.set(.5, .5);
   Player.char.x = game.world.centerX;
-  Player.char.animations.add('walk');
+  Player.char.animations.add(
+    'walk',
+    Phaser.Animation.generateFrameNames('walk/frame', 1, 6, '.png'),
+    60,
+    true,
+    false
+  );
+  Player.char.animations.add(
+    'idle',
+    Phaser.Animation.generateFrameNames('idle/frame', 1, 8, '.png'),
+    60,
+    true,
+    false
+  );
 }
 
 Player.initControls = function() {
@@ -44,7 +57,7 @@ Player.movement = function() {
   } else {
     // don't move
     Player.char.animations.stop('walk');
-    Player.char.frame = 0;
+    Player.startIdleAnimation();
   }
 
   if (Player.cursors.up.isDown
@@ -58,3 +71,7 @@ Player.movement = function() {
 Player.startWalkingAnimation = function() {
   Player.char.animations.play('walk', 10, true);
 };
+
+Player.startIdleAnimation = function() {
+  Player.char.animations.play('idle', 10, true);
+}
