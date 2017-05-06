@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.4.0</string>
         <key>fileName</key>
-        <string>D:/Projects/Games/phaser-tests/anims/dev/hero_walk.tps</string>
+        <string>D:/Projects/Games/phaser-tests/anims/dev/hero.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -36,7 +36,7 @@
         <key>dataFormat</key>
         <string>phaser-json-hash</string>
         <key>textureFileName</key>
-        <filename></filename>
+        <filename>../res/hero.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -150,7 +150,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>hero_walk.json</filename>
+                <filename>../res/hero.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -199,6 +199,100 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">hero/idle/frame1.png</key>
+            <key type="filename">hero/idle/frame6.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>14,16,29,33</rect>
+                <key>scale9Paddings</key>
+                <rect>14,16,29,33</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">hero/idle/frame2.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>15,16,30,33</rect>
+                <key>scale9Paddings</key>
+                <rect>15,16,30,33</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">hero/idle/frame3.png</key>
+            <key type="filename">hero/idle/frame7.png</key>
+            <key type="filename">hero/idle/frame8.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>15,16,29,33</rect>
+                <key>scale9Paddings</key>
+                <rect>15,16,29,33</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">hero/idle/frame4.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>14,16,28,33</rect>
+                <key>scale9Paddings</key>
+                <rect>14,16,28,33</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">hero/idle/frame5.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>14,16,27,33</rect>
+                <key>scale9Paddings</key>
+                <rect>14,16,27,33</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">hero/jump/frame1.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>17,16,33,32</rect>
+                <key>scale9Paddings</key>
+                <rect>17,16,33,32</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">hero/jump/frame2.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>17,15,33,29</rect>
+                <key>scale9Paddings</key>
+                <rect>17,15,33,29</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">hero/walk/frame1.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -280,7 +374,7 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>hero/walk</filename>
+            <filename>hero</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
