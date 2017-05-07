@@ -10,18 +10,25 @@ function Player() {
   Player.char.x = game.world.centerX;
   Player.char.animations.add(
     'walk',
-    Phaser.Animation.generateFrameNames('walk/frame', 1, 6, '.png'),
+    Phaser.Animation.generateFrameNames('hero/walk/frame', 1, 6, '.png'),
     60,
     true,
     false
   );
   Player.char.animations.add(
     'idle',
-    Phaser.Animation.generateFrameNames('idle/frame', 1, 8, '.png'),
+    Phaser.Animation.generateFrameNames('hero/idle/frame', 1, 8, '.png'),
     60,
     true,
     false
   );
+
+  Player.weapon = game.add.weapon(30, 'hero', 'misc/shmup-bullet.png');
+  Player.weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
+  Player.weapon.bulletSpeed = 600;
+  Player.weapon.fireRate = 100;
+  Player.weapon.trackSprite(Player.char, 30, 0, true);
+  Player.fireButton = game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
 }
 
 Player.initControls = function() {
@@ -31,8 +38,15 @@ Player.initControls = function() {
                     .createCursorKeys();
 };
 
+Player.fireControl = function() {
+  if (Player.fireButton.isDown) {
+    Player.weapon.fire();
+  }
+};
+
 Player.update = function() {
   Player.movement();
+  Player.fireControl();
 };
 
 Player.initPhysics = function() {
@@ -71,12 +85,12 @@ Player.movement = function() {
   const playerOnGround = (playerLastY > (game.world.height-50))
 
   if (Player.char.body.velocity.y < -1 || !playerOnGround) {
-    Player.char.frameName = 'jump/frame2.png';
+    Player.char.frameName = 'hero/jump/frame2.png';
   }
 };
 
 Player.startJumpingAnimation = function() {
-  Player.char.frameName = 'jump/frame2.png';
+  Player.char.frameName = 'hero/jump/frame2.png';
 };
 
 Player.startWalkingAnimation = function() {
