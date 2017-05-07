@@ -13,6 +13,8 @@ Play.create = function() {
 
   // init player
   Player();
+  // init Enemies
+  Enemy();
 };
 
 Play.update = function() {
