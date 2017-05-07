@@ -1,5 +1,5 @@
 function Player() {
-  Player.char = game.add.sprite(0, 0, 'hero');
+  Player.char = game.add.sprite(0, 0, 'collection', 'hero/idle/frame1.png');
 
   Player.initPhysics();
   Player.initControls();
@@ -23,7 +23,7 @@ function Player() {
     false
   );
 
-  Player.weapon = game.add.weapon(30, 'hero', 'misc/shmup-bullet.png');
+  Player.weapon = game.add.weapon(30, 'collection', 'misc/shmup-bullet.png');
   Player.weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
   Player.weapon.bulletSpeed = 600;
   Player.weapon.fireRate = 100;
