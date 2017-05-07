@@ -27,7 +27,8 @@ function Player() {
   Player.weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
   Player.weapon.bulletSpeed = 600;
   Player.weapon.fireRate = 100;
-  Player.weapon.trackSprite(Player.char, 30, 0, true);
+  // false to change the fireAngle of the weapon
+  Player.weapon.trackSprite(Player.char, 30, 0, false);
   Player.fireButton = game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
 }
 
@@ -63,11 +64,13 @@ Player.movement = function() {
     Player.char.body.velocity.x = -200;
     Player.startWalkingAnimation();
     Player.char.scale.x = 2 * -1;
+    Player.weapon.fireAngle = Phaser.ANGLE_LEFT;
   } else if (Player.cursors.right.isDown) {
     // move right
     Player.char.body.velocity.x = 200;
     Player.startWalkingAnimation();
     Player.char.scale.x = 2 * 1;
+    Player.weapon.fireAngle = Phaser.ANGLE_RIGHT;
   } else {
     // don't move
     Player.char.animations.stop('walk');
