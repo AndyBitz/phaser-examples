@@ -63,10 +63,14 @@ Player.movement = function() {
   if (Player.cursors.up.isDown
     && Player.char.body.onFloor()) {
     // jump
-    Player.char.body.velocity.y = -350;
+    Player.char.body.velocity.y = -500;
   }
 
-  if (Player.char.body.velocity.y < -1) {
+  const playerBounds = Player.char.getBounds();
+  const playerLastY = playerBounds.y+playerBounds.height;
+  const playerOnGround = (playerLastY > (game.world.height-50))
+
+  if (Player.char.body.velocity.y < -1 || !playerOnGround) {
     Player.char.frameName = 'jump/frame2.png';
   }
 };
