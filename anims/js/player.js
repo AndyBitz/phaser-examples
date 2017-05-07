@@ -45,9 +45,18 @@ Player.fireControl = function() {
   }
 };
 
+Player.hitDetection = function() {
+  game.physics.arcade.overlap(Player.weapon.bullets, Enemy.group, Player.hitDetectionCallback, null, this);
+};
+
+Player.hitDetectionCallback = function(bullet, enemy) {
+  enemy.damage(20);
+};
+
 Player.update = function() {
   Player.movement();
   Player.fireControl();
+  Player.hitDetection();
 };
 
 Player.initPhysics = function() {
