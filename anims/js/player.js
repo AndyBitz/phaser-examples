@@ -27,7 +27,7 @@ function Player() {
   Player.weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
   Player.weapon.bulletSpeed = 600;
   Player.weapon.fireRate = 100;
-  // false to change the fireAngle of the weapon
+  // false, to be able to change the fireAngle of the weapon
   Player.weapon.trackSprite(Player.char, 30, 0, false);
   Player.fireButton = game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
 }
