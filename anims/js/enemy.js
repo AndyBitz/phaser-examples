@@ -12,9 +12,12 @@ Enemy.spawnLoop = function() {
 };
 
 Enemy.spawn = function() {
+  // never spawn more than 50
+  if (Enemy.group.length > 50) return;
+
   const enemy = game.add.sprite(0, 0, 'collection', 'enemy/frame1.png');
   const direction = game.rnd.integerInRange(0, 1);
-  const velocity = game.rnd.integerInRange(45, 75);
+  const velocity = game.rnd.integerInRange(100, 140);
 
   // defaults
   enemy.health = 10;
