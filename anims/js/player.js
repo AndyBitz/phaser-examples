@@ -8,7 +8,7 @@ function Player() {
   Player.char.scale.set(2, 2);
   Player.char.anchor.set(.5, .5);
   Player.char.x = game.world.centerX;
-  
+
   Player.char.animations.add(
     'walk',
     Phaser.Animation.generateFrameNames('hero/walk/frame', 1, 6, '.png'),
@@ -49,7 +49,13 @@ Player.fireControl = function() {
 };
 
 Player.hitDetection = function() {
-  game.physics.arcade.overlap(Player.weapon.bullets, Enemy.group, Player.hitDetectionCallback, null, this);
+  game.physics.arcade.overlap(
+    Player.weapon.bullets,
+    Enemy.group,
+    Player.hitDetectionCallback,
+    null,
+    this
+  );
 };
 
 Player.hitDetectionCallback = function(bullet, enemy) {

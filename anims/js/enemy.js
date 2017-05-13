@@ -1,7 +1,15 @@
 function Enemy() {
   Enemy.group = game.add.group();
-  Enemy.spawn();
+  Enemy.spawnLoop();
 }
+
+Enemy.spawnLoop = function() {
+  game.time.events.loop(
+    Phaser.Timer.SECOND,
+    Enemy.spawn,
+    this
+  );
+};
 
 Enemy.spawn = function() {
   const enemy = game.add.sprite(0, 0, 'collection', 'enemy/frame1.png');
@@ -10,9 +18,6 @@ Enemy.spawn = function() {
 
   // defaults
   enemy.health = 10;
-  enemy.update = () => {
-
-  };
 
   // position
   enemy.x = direction ? 0 : game.world.width-enemy.width;
