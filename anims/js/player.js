@@ -8,6 +8,8 @@ function Player() {
   Player.char.scale.set(2, 2);
   Player.char.anchor.set(.5, .5);
   Player.char.x = game.world.centerX;
+  Player.char.health = 50;
+  Player.char.invincible = false;
 
   Player.char.animations.add(
     'walk',
@@ -48,17 +50,43 @@ Player.fireControl = function() {
   }
 };
 
-Player.hitDetection = function() {
+Player.toggleInvincible = function() {
+  Player.char.invincible = !Player.char.invincible
+}
+
+Player.enmeyHitDetection = function() {
+  game.physics.arcade.overlap(
+    Player.char,
+    Enemy.group,
+    Player.enmeyHitDetectionCallback,
+    null,
+    this
+  );
+}
+
+Player.enmeyHitDetectionCallback = function(player, enemy) {
+  if (!player.invincible) {
+    player.invincible = true;
+    player.alpha = .5;
+    player.damage(20);
+    game.time.events.add(Phaser.Timer.SECOND * 4, () => {
+      player.alpha = 1;
+      player.invincible = false;
+    }, this);
+  }
+};
+
+Player.bulletHitDetection = function() {
   game.physics.arcade.overlap(
     Player.weapon.bullets,
     Enemy.group,
-    Player.hitDetectionCallback,
+    Player.bulletHitDetectionCallback,
     null,
     this
   );
 };
 
-Player.hitDetectionCallback = function(bullet, enemy) {
+Player.bulletHitDetectionCallback = function(bullet, enemy) {
   enemy.damage(20);
   bullet.kill();
 };
@@ -66,7 +94,8 @@ Player.hitDetectionCallback = function(bullet, enemy) {
 Player.update = function() {
   Player.movement();
   Player.fireControl();
-  Player.hitDetection();
+  Player.enmeyHitDetection();
+  Player.bulletHitDetection();
 };
 
 Player.initPhysics = function() {
