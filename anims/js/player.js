@@ -8,6 +8,7 @@ function Player() {
   Player.char.scale.set(2, 2);
   Player.char.anchor.set(.5, .5);
   Player.char.x = game.world.centerX;
+  
   Player.char.animations.add(
     'walk',
     Phaser.Animation.generateFrameNames('hero/walk/frame', 1, 6, '.png'),
@@ -15,6 +16,7 @@ function Player() {
     true,
     false
   );
+
   Player.char.animations.add(
     'idle',
     Phaser.Animation.generateFrameNames('hero/idle/frame', 1, 8, '.png'),
@@ -27,6 +29,7 @@ function Player() {
   Player.weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
   Player.weapon.bulletSpeed = 600;
   Player.weapon.fireRate = 100;
+
   // false, to be able to change the fireAngle of the weapon
   Player.weapon.trackSprite(Player.char, 30, 0, false);
   Player.fireButton = game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
@@ -51,6 +54,7 @@ Player.hitDetection = function() {
 
 Player.hitDetectionCallback = function(bullet, enemy) {
   enemy.damage(20);
+  bullet.kill();
 };
 
 Player.update = function() {
