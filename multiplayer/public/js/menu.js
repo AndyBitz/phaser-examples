@@ -6,15 +6,15 @@ Menu.create = () => {
   Game.session = Game.createSession();
 
   // display session
-  const sessionText = game.add.text(
+  Menu.sessionText = game.add.text(
     game.world.centerX,
     game.world.centerY-40,
     `session: ${Game.session}`,
     { font: '36px monospace',
       fill: '#ffffff' });
-  sessionText.inputEnabled = true;
-  sessionText.anchor.set(.5, .5);
-  sessionText.events.onInputUp.add(Menu.sessionEvent, this);
+  Menu.sessionText.inputEnabled = true;
+  Menu.sessionText.anchor.set(.5, .5);
+  Menu.sessionText.events.onInputUp.add(Menu.sessionEvent, this);
 
   // start game and wait till someone joins button
   const startButton = game.add.button(
@@ -43,4 +43,9 @@ Menu.sessionEvent = () => {
   // allow to enter new session key
   // validate session key (same on server)
   // set session key
+  const res = window.prompt("Enter Session Key", Game.session);
+  if (res && res !== Game.session) {
+    Game.session = res;
+    Menu.sessionText.setText(`session: ${res}`);
+  }
 };
