@@ -11,6 +11,14 @@ function Game() {
   game.state.start('boot');
 }
 
+Game.createSession = () => {
+  const time = new Date().getTime();
+  const salt = Math.round(Math.random()*100000);
+  const pepper = Math.round(Math.random()*2);
+  const key = `${(time+salt).toString(36).toUpperCase()}${pepper.toString(36).toUpperCase()}`;
+  return key;
+};
+
 Game.bootState = {
   // load assets and go to menu
   preload: Boot.preload,

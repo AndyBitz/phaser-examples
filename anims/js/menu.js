@@ -1,6 +1,4 @@
-function Menu() {
-
-}
+function Menu() {}
 
 Menu.create = function() {
   // add background
