@@ -16,10 +16,20 @@ export default function middleware(request, _event) {
 		return [name.trimLeft(), value]
 	}) || []);
 
-	const game = cookies.get('game');
-
+	const gameCurrent = cookies.get('game');
 	const gameInit = url.searchParams.get('game');
-	if (gameInit && url.pathname === '/' && game !== gameInit) {
+
+	if (!gameInit && url.pathname === '/') {
+		// Remove the cookie if there is no `game` query param on the root path.
+		return new Response(null, {
+			headers: {
+				'x-middleware-rewrite': new URL(`/${url.search}`, url).toString(),
+				'Set-Cookie': 'game=; Path=/; HttpOnly; Max-Age=0'
+			},
+		});
+	}
+
+	if (gameInit && url.pathname === '/' && gameCurrent !== gameInit) {
 		return new Response(null, {
 			headers: {
 				'x-middleware-rewrite': new URL(`/${gameInit}${url.search}`, url).toString(),
@@ -34,9 +44,9 @@ export default function middleware(request, _event) {
 		'states',
 	]);
 
-	if (game && games.has(game)) {
+	if (gameCurrent && games.has(gameCurrent)) {
 		// Rewrite to the game by prefixing the path for the rewrite
-		const dest = new URL(`/${game}/${url.pathname}${url.search}`, url);
+		const dest = new URL(`/${gameCurrent}/${url.pathname}${url.search}`, url);
 
 		const response = new Response();
 		response.headers.set('x-middleware-rewrite', String(dest));
@@ -47,10 +57,5 @@ export default function middleware(request, _event) {
 	// Do nothing
 	const response = new Response();
 	response.headers.set('x-middleware-next', '1');
-
-	if (!gameInit && url.pathname === '/' && cookies.get('game')) {
-		response.headers.set('Set-Cookie', `game=; Path=/; HttpOnly; Max-Age=0`);
-	}
-
 	return response;
 }
