@@ -15,7 +15,6 @@ export default function middleware(request, _event) {
 	if (gameInit && url.pathname === '/') {
 		return new Response(null, {
 			headers: {
-				Location: String(dest),
 				'x-middleware-next': '1',
 				'Set-Cookie': `game=${gameInit}; Path=/; HttpOnly`,
 			},
