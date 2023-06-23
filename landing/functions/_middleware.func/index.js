@@ -24,7 +24,10 @@ export default function middleware(request, _event) {
 		[]
 	);
 
-	const gameCurrent = cookies.get('game');
+	// Fallback to the referer, because the cookie seems to be missing for
+	// some assets.
+	const gameReferer = new URL(request.headers.get('referer') || url).searchParams.get('game');
+	const gameCurrent = cookies.get('game') || gameReferer;
 	const gameInit = url.searchParams.get('game');
 
 	// Remove the cookie if there is no `game` query param on the root path.
