@@ -11,11 +11,18 @@ export default function middleware(request, _event) {
 	// If then another request to the root games in without the
 	// query param, it'll unset the cookie again.
 
+	const cookies = new Map(request.headers.get('cookie')?.split(';').map(raw => {
+		const [name, value] = raw.split('=');
+		return [name.trimLeft(), value]
+	}) || []);
+
+	const game = cookies.get('game');
+
 	const gameInit = url.searchParams.get('game');
-	if (gameInit && url.pathname === '/') {
+	if (gameInit && url.pathname === '/' && game !== gameInit) {
 		return new Response(null, {
 			headers: {
-				'x-middleware-next': '1',
+				'x-middleware-rewrite': new URL(`/${gameInit}${url.search}`, url).toString(),
 				'Set-Cookie': `game=${gameInit}; Path=/; HttpOnly`,
 			},
 		});
@@ -27,14 +34,7 @@ export default function middleware(request, _event) {
 		'states',
 	]);
 
-	const cookies = new Map(request.headers.get('cookie')?.split(';').map(raw => {
-		const [name, value] = raw.split('=');
-		return [name.trimLeft(), value]
-	}) || []);
-
-	const game = cookies.get('game');
-
-	if (games.has(game)) {
+	if (game && games.has(game)) {
 		// Rewrite to the game by prefixing the path for the rewrite
 		const dest = new URL(`/${game}/${url.pathname}${url.search}`, url);
 
