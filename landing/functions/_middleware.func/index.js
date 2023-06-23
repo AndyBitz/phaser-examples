@@ -1,3 +1,9 @@
+const games = new Set([
+	'anims',
+	'phaser-first-test',
+	'states',
+]);
+
 export default function middleware(request, _event) {
 	const url = new URL(request.url);
 
@@ -11,16 +17,18 @@ export default function middleware(request, _event) {
 	// If then another request to the root games in without the
 	// query param, it'll unset the cookie again.
 
-	const cookies = new Map(request.headers.get('cookie')?.split(';').map(raw => {
-		const [name, value] = raw.split('=');
-		return [name.trimLeft(), value]
-	}) || []);
+	const cookies = new Map(
+		request.headers.get('cookie')?.split(';').map(raw => {
+			return raw.split('=');
+		}) ||
+		[]
+	);
 
 	const gameCurrent = cookies.get('game');
 	const gameInit = url.searchParams.get('game');
 
-	if (!gameInit && url.pathname === '/') {
-		// Remove the cookie if there is no `game` query param on the root path.
+	// Remove the cookie if there is no `game` query param on the root path.
+	if (gameCurrent && !gameInit && url.pathname === '/') {
 		return new Response(null, {
 			headers: {
 				'x-middleware-rewrite': new URL(`/${url.search}`, url).toString(),
@@ -29,6 +37,7 @@ export default function middleware(request, _event) {
 		});
 	}
 
+	// Set the cookie and rewrite to the game.
 	if (gameInit && url.pathname === '/' && gameCurrent !== gameInit) {
 		return new Response(null, {
 			headers: {
@@ -38,20 +47,13 @@ export default function middleware(request, _event) {
 		});
 	}
 
-	const games = new Set([
-		'anims',
-		'phaser-first-test',
-		'states',
-	]);
-
-	if (gameCurrent && games.has(gameCurrent)) {
-		// Rewrite to the game by prefixing the path for the rewrite
-		const dest = new URL(`/${gameCurrent}/${url.pathname}${url.search}`, url);
-
-		const response = new Response();
-		response.headers.set('x-middleware-rewrite', String(dest));
-
-		return response;
+	// Rewrite all paths if the current game is set via a cookie.
+	if (games.has(gameCurrent)) {
+		return new Response(null, {
+			headers: {
+				'x-middleware-rewrite': new URL(`/${gameCurrent}${url.pathname}${url.search}`, url).toString(),
+			}
+		});
 	}
 
 	// Do nothing
